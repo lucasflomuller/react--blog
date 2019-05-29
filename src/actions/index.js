@@ -1,6 +1,16 @@
 // import _ from "lodash";
 import jsonPlaceholder from "../apis/jsonPlaceholder";
 
+export const fetchPostsAndUsers = () => async (dispatch, getState) => {
+  await dispatch(fetchPosts());
+
+  const userIds = getState()
+    .posts.map(post => post.userId)
+    .filter((id, idx, ids) => ids.indexOf(id) === idx); // Filtering unique values
+
+  userIds.forEach(id => dispatch(fetchUser(id)));
+};
+
 export const fetchPosts = () => async dispatch => {
   const response = await jsonPlaceholder.get("/posts");
 
