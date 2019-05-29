@@ -22,7 +22,11 @@ const mapStateToProps = (state, ownProps) => {
   return { user: state.users.find(user => user.id === ownProps.userId) };
 };
 
+const mapDispatchToProps = {
+  fetchUser
+}
+
 export default connect(
   mapStateToProps,
-  { fetchUser }
+  mapDispatchToProps
 )(UserHeader);
